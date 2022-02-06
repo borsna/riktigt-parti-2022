@@ -57,31 +57,31 @@
                 el: '#app',
                 data: {
                   parties:[
-                    {sorce: "ond-kyckling-partiet.png",real: true},
-                    {sorce: "andringspartiet.png",real: true},
-                    {sorce: "direktdemokraterna.png",real: true},
-                    {sorce: "enhet.png",real: true},
-                    {sorce: "envisavskaffarasyl.png",real: true},
-                    {sorce: "foretaget-sverige.png",real: true},
-                    {sorce: "framtidstro.png",real: true},
-                    {sorce: "initiativet.png",real: true},
-                    {sorce: "klassiskt-liberala-partiet.png",real: true},
-                    {sorce: "knapptryckarna.png",real: true},
-                    {sorce: "medborgarresan.png",real: true},
-                    {sorce: "min-rost.png",real: true},
-                    {sorce: "nya-frihetspartiet.png",real: true},
-                    {sorce: "nya-samhallspartiet.png",real: true},
-                    {sorce: "nyans.png",real: true},
-                    {sorce: "positivt-aamh.png",real: true},
-                    {sorce: "socialliberatianerna.png",real: true},
-                    {sorce: "solidaritetspartiet.png",real: true},
-                    {sorce: "svenska-rikslagen.png",real: true},
-                    {sorce: "svenskarna.png",real: true},
-                    {sorce: "valsamverkanspartiet.png",real: true},
-                    {sorce: "vinningspartiet.png",real: true},
-                    {sorce: "billigare-bensin.png",real: false},
-                    {sorce: "rattvisa-till-alla.png",real: false},
-                    {sorce: "nordlig-front.png",real: false}
+                    {source: "ond-kyckling-partiet.png",real: true},
+                    {source: "andringspartiet.png",real: true},
+                    {source: "direktdemokraterna.png",real: true},
+                    {source: "enhet.png",real: true},
+                    {source: "envisavskaffarasyl.png",real: true},
+                    {source: "foretaget-sverige.png",real: true},
+                    {source: "framtidstro.png",real: true},
+                    {source: "initiativet.png",real: true},
+                    {source: "klassiskt-liberala-partiet.png",real: true},
+                    {source: "knapptryckarna.png",real: true},
+                    {source: "medborgarresan.png",real: true},
+                    {source: "min-rost.png",real: true},
+                    {source: "nya-frihetspartiet.png",real: true},
+                    {source: "nya-samhallspartiet.png",real: true},
+                    {source: "nyans.png",real: true},
+                    {source: "positivt-aamh.png",real: true},
+                    {source: "socialliberatianerna.png",real: true},
+                    {source: "solidaritetspartiet.png",real: true},
+                    {source: "svenska-rikslagen.png",real: true},
+                    {source: "svenskarna.png",real: true},
+                    {source: "valsamverkanspartiet.png",real: true},
+                    {source: "vinningspartiet.png",real: true},
+                    {source: "billigare-bensin.png",real: false},
+                    {source: "rattvisa-till-alla.png",real: false},
+                    {source: "nordlig-front.png",real: false}
                   ],
                   current: 0,
                   points: 0,
@@ -94,9 +94,9 @@
                     currentImage: function () {
                       var p = this.parties[this.current];
                       if(p.real){
-                        return "resources/images/real/"+p.sorce;
+                        return "resources/images/real/"+p.source;
                       }else{
-                        return "resources/images/fake/"+p.sorce;
+                        return "resources/images/fake/"+p.source;
                       }
                     },
                     progress: function(){
