@@ -25,13 +25,13 @@
             Gissa om det är en riktig partisymbol som har lämnats in till valnyndigheten för riksdagsvalet 2022.
         </p>
         <div id="app">
-            <div v-if="intro">
+            <div v-if="state == 'intro'">
                 <button class="start" v-on:click="start">Starta Quizet!</button>
             </div>
 
-            <div v-if="quiz">
+            <div v-if="state == 'quiz'">
                 <img :src="currentImage">
-                <progress :value="progress" :max="parties.length"></progress>
+                <progress :value="current" :max="parties.length"></progress>
                 <div>
                     <span class="wrong"></span>
                 </div>
@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <div v-if="score">
+            <div v-if="state == 'score'">
                 <p>
                     <strong>Du fick {{ points }} av {{ parties.length }} rätt</strong>
                 </p>
@@ -99,18 +99,6 @@
                       }else{
                         return "resources/images/fake/"+p.source;
                       }
-                    },
-                    progress: function(){
-                        return this.current;
-                    },
-                    intro: function(){
-                        return this.state === 'intro';
-                    },
-                    quiz: function(){
-                        return this.state === 'quiz';
-                    },
-                    score: function(){
-                        return this.state === 'score';
                     }
                 },
                 methods: {
@@ -143,11 +131,7 @@
                         this.state = 'quiz';
                     },
                     isReal: function(){
-                        if(this.parties[this.current].real){
-                            return true;
-                        }else{
-                            return false;
-                        }
+                        return this.parties[this.current].real;
                     },
                     shuffleArray: function(array) {
                         for (var i = array.length - 1; i > 0; i--) {
