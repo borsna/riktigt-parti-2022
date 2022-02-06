@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="sv">
+    <head>
+        <link rel="stylesheet" href="resources/css/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <meta charset="UTF-8">
+
+        <title>Riktigt eller påhittat parti</title>
+    </head>
+    <body>
+        <h1>Riktigt eller påhittat parti?</h1>
+        <p>
+            Är det en riktig eller påhittad partisymbol för ett registerat parti för riksdagsvalet 2022?
+        </p>
+        <div id="app">
+            <img :src="currentImage">
+            <progress value="2" max="23"></progress>
+            <div>
+                <span class="wrong"></span>
+            </div>
+            <div>
+                <button class="real">Riktigt parti</button>
+                <button class="fake">Påhittat parti</button>
+            </div>
+        </div>
+        
+        <script>
+            /*
+                https://www.val.se/for-partier/partibeteckning/registrerade-partibeteckningar.html
+            */
+            var app = new Vue({
+                el: '#app',
+                data: {
+                  parties:[
+                      {
+                        sorce: "ond-kyckling-partiet.png",
+                        real: true
+                      }
+                  ],
+                  current:0
+                },
+                computed: {
+                    currentImage: function () {
+                      var p = this.parties[this.current];
+                      if(p.real){
+                        return "resources/images/real/"+p.sorce;
+                      }else{
+                        return "resources/images/fake/"+p.sorce;
+                      }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
