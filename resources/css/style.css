@@ -18,7 +18,7 @@ button{
     float:left;
     width: 50%;
     height: 2em;
-    font-size: 2rem;
+    font-size: 1.1rem;
     font-weight: bold;
     border: none;
     cursor:pointer;
@@ -32,4 +32,18 @@ button.real{
 
 button.fake{
     background-color: #ff6347;
+}
+
+button.start{
+    background-color: #50b36e;
+    height: 2em;
+    font-size: 2rem;
+    width: 100%;
+}
+
+button.retry{
+    background-color: #ff9933;
+    height: 2em;
+    font-size: 2rem;
+    width: 100%;
 }

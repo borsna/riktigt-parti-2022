@@ -2,25 +2,40 @@
 <html lang="sv">
     <head>
         <link rel="stylesheet" href="resources/css/style.css">
+        <link rel="icon" type="image/png" href="resources/images/favicon.png" />
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <meta charset="UTF-8">
-
-        <title>Riktigt eller påhittat parti</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>Riktigt eller påhittat parti </title>
     </head>
     <body>
         <h1>Riktigt eller påhittat parti?</h1>
         <p>
-            Är det en riktig eller påhittad partisymbol för ett registerat parti för riksdagsvalet 2022?
+            Är det en riktig eller påhittad partisymbol för ett registerat parti till riksdagsvalet 2022?
         </p>
         <div id="app">
-            <img :src="currentImage">
-            <progress value="2" max="23"></progress>
-            <div>
-                <span class="wrong"></span>
+            <div v-if="intro">
+                <button class="start" v-on:click="start">Starta Quizet!</button>
             </div>
-            <div>
-                <button class="real">Riktigt parti</button>
-                <button class="fake">Påhittat parti</button>
+
+            <div v-if="quiz">
+                <img :src="currentImage">
+                <progress :value="progress" :max="parties.length"></progress>
+                <div>
+                    <span class="wrong"></span>
+                </div>
+                <div>
+                    <button v-on:click="guessReal" class="real">Riktigt parti</button>
+                    <button v-on:click="guessFake" class="fake">Påhittat parti</button>
+                </div>
+            </div>
+
+            <div v-if="score">
+                <p>
+                    <strong>Du fick {{ points }} av {{ parties.length }} rätt</strong>
+                </p>
+                <button v-on:click="retry" class="retry">Försök igen</button>
             </div>
         </div>
         
@@ -32,12 +47,38 @@
                 el: '#app',
                 data: {
                   parties:[
-                      {
-                        sorce: "ond-kyckling-partiet.png",
-                        real: true
-                      }
+                    {sorce: "ond-kyckling-partiet.png",real: true},
+                    {sorce: "andringspartiet.png",real: true},
+                    {sorce: "direktdemokraterna.png",real: true},
+                    {sorce: "enhet.png",real: true},
+                    {sorce: "envisavskaffarasyl.png",real: true},
+                    {sorce: "foretaget-sverige.png",real: true},
+                    {sorce: "framtidstro.png",real: true},
+                    {sorce: "initiativet.png",real: true},
+                    {sorce: "klassiskt-liberala-partiet.png",real: true},
+                    {sorce: "knapptryckarna.png",real: true},
+                    {sorce: "medborgarresan.png",real: true},
+                    {sorce: "min-rost.png",real: true},
+                    {sorce: "nya-frihetspartiet.png",real: true},
+                    {sorce: "nya-samhallspartiet.png",real: true},
+                    {sorce: "nyans.png",real: true},
+                    {sorce: "positivt-aamh.png",real: true},
+                    {sorce: "socialliberatianerna.png",real: true},
+                    {sorce: "solidaritetspartiet.png",real: true},
+                    {sorce: "svenska-rikslagen.png",real: true},
+                    {sorce: "svenskarna.png",real: true},
+                    {sorce: "valsamverkanspartiet.png",real: true},
+                    {sorce: "vinningspartiet.png",real: true},
+                    {sorce: "billigare-bensin.png",real: false},
+                    {sorce: "rattvisa-till-alla.png",real: false},
+                    {sorce: "nordlig-front.png",real: false}
                   ],
-                  current:0
+                  current: 0,
+                  points: 0,
+                  state: 'intro'
+                },
+                created: function () {
+                    this.shuffleArray(this.parties);
                 },
                 computed: {
                     currentImage: function () {
@@ -47,6 +88,63 @@
                       }else{
                         return "resources/images/fake/"+p.sorce;
                       }
+                    },
+                    progress: function(){
+                        return this.current;
+                    },
+                    intro: function(){
+                        return this.state === 'intro';
+                    },
+                    quiz: function(){
+                        return this.state === 'quiz';
+                    },
+                    score: function(){
+                        return this.state === 'score';
+                    }
+                },
+                methods: {
+                    guessFake: function (event) {
+                        if(!this.isReal()){
+                            this.points++;
+                        }
+                        this.next();
+                    },
+                    guessReal: function (event) {
+                        if(this.isReal()){
+                            this.points++;
+                        }
+                        this.next();
+                    },
+                    next: function(){
+                        if(this.current >= this.parties.length -1){
+                            this.state = 'score';
+                        }else{
+                            this.current++;
+                        }
+                    },
+                    start: function(event){
+                        this.state = 'quiz';
+                    },
+                    retry: function(event){
+                        this.points = 0;
+                        this.shuffleArray(this.parties);
+                        this.current = 0;
+                        this.state = 'quiz';
+                    },
+                    isReal: function(){
+                        if(this.parties[this.current].real){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    },
+                    shuffleArray: function(array) {
+                        for (var i = array.length - 1; i > 0; i--) {
+                            var j = Math.floor(Math.random() * (i + 1));
+                            var temp = array[i];
+                            array[i] = array[j];
+                            array[j] = temp;
+                        }
                     }
                 }
             })
