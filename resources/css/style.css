@@ -47,3 +47,16 @@ button.retry{
     font-size: 2rem;
     width: 100%;
 }
+
+button.facit{
+    margin-top: 0.5rem;
+    background-color: #c054ff;
+    height: 2em;
+    font-size: 2rem;
+    width: 100%;
+}
+
+legend{
+    font-weight: bold;
+    font-size: 2rem;
+}

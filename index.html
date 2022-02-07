@@ -46,7 +46,21 @@
                     <strong>Du fick {{ points }} av {{ parties.length }} rätt</strong>
                 </p>
                 <button v-on:click="retry" class="retry">Försök igen</button>
+                <button v-on:click="showAnswers = true" class="facit">Visa facit</button>
+                <div v-if="showAnswers">
+                    <fieldset>
+                        <legend>Påhittade partisymboler</legend>
+                        <img v-for="p in parties" :src="getImagePath(p)" v-if="!p.real">
+                    </fieldset>
+        
+                    <fieldset>
+                        <legend>Riktiga partisymboler</legend>
+                        <img v-for="p in parties" :src="getImagePath(p)" v-if="p.real">
+                    </fieldset>
+                </div>
             </div>
+
+
         </div>
         
         <script>
@@ -86,19 +100,15 @@
                   ],
                   current: 0,
                   points: 0,
-                  state: 'intro'
+                  state: 'intro',
+                  showAnswers:false
                 },
                 created: function () {
                     this.shuffleArray(this.parties);
                 },
                 computed: {
                     currentImage: function () {
-                      var p = this.parties[this.current];
-                      if(p.real){
-                        return "resources/images/real/"+p.source;
-                      }else{
-                        return "resources/images/fake/"+p.source;
-                      }
+                      return this.getImagePath(this.parties[this.current]);
                     }
                 },
                 methods: {
@@ -128,10 +138,18 @@
                         this.points = 0;
                         this.shuffleArray(this.parties);
                         this.current = 0;
+                        this.showAnswers = false;
                         this.state = 'quiz';
                     },
                     isReal: function(){
                         return this.parties[this.current].real;
+                    },
+                    getImagePath(party){
+                        if(party.real){
+                            return "resources/images/real/"+party.source;
+                        }else{
+                            return "resources/images/fake/"+party.source;
+                        }
                     },
                     shuffleArray: function(array) {
                         for (var i = array.length - 1; i > 0; i--) {
